@@ -4,7 +4,7 @@ import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import {
   AuthPage,
   ErrorComponent,
-  Layout,
+  ThemedLayout,
   notificationProvider,
 } from "@refinedev/antd";
 import "@refinedev/antd/dist/reset.css";
@@ -75,9 +75,9 @@ function App() {
               <Route
                 element={
                   <Authenticated fallback={<CatchAllNavigate to="/login" />}>
-                    <Layout Header={Header}>
+                    <ThemedLayout>
                       <Outlet />
-                    </Layout>
+                    </ThemedLayout>
                   </Authenticated>
                 }
               >
@@ -123,9 +123,9 @@ function App() {
               <Route
                 element={
                   <Authenticated>
-                    <Layout Header={Header}>
+                    <ThemedLayout>
                       <Outlet />
-                    </Layout>
+                    </ThemedLayout>
                   </Authenticated>
                 }
               >
