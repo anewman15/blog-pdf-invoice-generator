@@ -2,7 +2,7 @@
 
 In this episode, we initialize our **Pdf Invoice Generator** app using with the **refine** CLI Wizard and get familiar with the boilerplate code created. We also initialize our **Strapi** backend server and create the database collections we need.
 
-This is Day 2 of the [**#refineWeek**]() series. This [**#refineWeek**]() is a five-part tutorial that aims to help developers learn the ins-and-outs of **refine**'s powerful capabilities and get going with **refine** within a week.
+This is Day 2 of the [**refineWeek**]() series. This **refineWeek** is a five-part tutorial that aims to help developers learn the ins-and-outs of **refine**'s powerful capabilities and get going with **refine** within a week.
 
 
 ## Overview
@@ -62,8 +62,7 @@ npm run dev
 
 After that, navigate to `http://localhost:3000`, and lo and behold! we have a **refine** app:
 
-![1-setting-up-the-app](https://imgbox.com/ByOpOTTN)
-
+![1-setting-up-the-app](./1-setting-up-the-app.png)
 <br />
 
 
@@ -227,10 +226,9 @@ export default App;
 
 Take an early note of the `resources` prop. The resources and their corresponding routes are added as part of the examples that we opted for while initializing the project with the **refine** CLI Wizard. We are going to remove these resources and route definitions and add our own in the coming episodes.
 
-Note also the presentation of the `<AuthPage />` component at the `/login` path. We will come to this in a section related to authentication on [Day 3]().
+Note also the presentation of the `<AuthPage />` component at the `/login` path. We will come to this in a section related to authentication on [Day Two]().
 
-For the most part, the meat of an app is configured and built around the above indicated props and routes. Today, we'll examine a few of these props so that we are ready to move to the next episode. But let's begin with the `<Refine />` component first.
-
+For the most part, the meat of an app is configured and built around the above indicated props and routes. Today, we'll examine a few of these props so that we are ready to move to the next episode.
 <br />
 
 
@@ -238,9 +236,9 @@ For the most part, the meat of an app is configured and built around the above i
 
 The `<Refine />` component is the entry point of a **refine** app. In order to leverage the power of **refine**'s abstraction layers, we need to have the `<Refine />` component.
 
-Then we have to configure the `<Refine />` component with the provider objects we want to use in our app. We can see that CLI Wizard already added the `dataProvider` and `authProvider` props for us inside `<Refine />` out-of-the-box. We will be using them in our app. Some provider objects like the `notificationProvider` or the `dataProvider` are defined for us by **refine**'s core or support modules and some like the [`accessControlProvider`](https://refine.dev/docs/api-reference/core/providers/accessControl-provider/) have to be defined by ourselves.
+Then we have to configure the `<Refine />` component with the provider objects we want to use in our app. We can see that CLI Wizard already added the `dataProvider` and `authProvider` props for us inside `<Refine />` out-of-the-box. We will be using them in our app. Some provider objects like the `notificationProvider` or the `dataProvider` are defined for us by **refine**'s core or support modules and some like the `accessControlProvider` have to be defined by ourselves.
 
-Besides, some providers such as the `authProvider` _**can / have**_ to be tailored according to our app's needs and some like the **Strapi**-specific `dataProvider` by `@refinedev/strapi-v4` come packaged completely and cannot be extended or modified.
+Besides, some providers such as the `authProvider` _can / have_ to be tailored according to our app's needs and some like the **Strapi**-specific `dataProvider` by `@refinedev/strapi-v4` come completed and cannot be extended or modified, because we don't need to.
 
 <br />
 
@@ -297,7 +295,7 @@ Each item in this object is a method that has to be defined by us or **refine**'
 
 **refine** supports [15+ backend](https://refine.dev/integrations/) `dataProvider` integrations as optional packages that come with distinct definitions of these methods that handle CRUD operations according to their underlying architectures. The full list can be found [here](https://refine.dev/docs/packages/list-of-packages/#data-provider-packages).
 
-Normally, for our own backend API, we have to define each method we need for sending `http` requests inside a `dataProvider` object as above. But since we are using **Strap** as our backend and the `@refinedev/strapi-v4` package to communicate with it, `dataProvider={DataProvider(API_URL + `/api`, axiosInstance)}` makes the following object available to us:
+Normally, for our own backend API, we have to define each method we need for sending `http` requests inside a `dataProvider` object as above. But since we are using the `@refinedev/strapi-v4` package, `dataProvider={DataProvider(API_URL + `/api`, axiosInstance)}` makes the following object available to us:
 
 ```TypeScript
 // Inside node_modules/@refinedev/strapi-v4/src/dataProvider.ts
@@ -558,18 +556,16 @@ export const DataProvider = (
 });
 ```
 
-This overwhelming and intimidating, but if we skim over closely, the `dataProvider` object above has pretty much every method we need to perform all CRUD operations against a **Strapi** backend. Under the hood, all these methods implement RESTful conventions and are tied up with appropriate RESTful resources and routes thanks to **refine**'s sensible defaults.
+We don't have to get into the mind of the people at **refine** yet, but if we skim over closely, the `dataProvider` object above has pretty much every method we need to perform all CRUD operations against a **Strapi** backend. Under the hood, all these methods implement RESTful conventions and are tied up with appropriate RESTful resources and routes thanks to **refine**'s sensible defaults.
 
-Notable methods that we are going to use in our app are: `create()`, `getList()`, `update()` and `delete()`. Also notice that the `@refinedev/strapi-4` package uses [`axios`](https://axios-http.com) to communicate with the **Strapi** server.
+Notable methods that we are going to use in our app are: `create()`, `getOne()`, `getList()` and `update()`. Also notice that the `@refinedev/strapi` package uses `axios` to communicate with the **Strapi** server.
 
 For the details of how these methods work, please take your time to scan through the [`dataProvider` API reference](https://refine.dev/docs/api-reference/core/providers/data-provider/).
 
 
-### Strapi Client
-
 In order to get the **Strapi** `dataProvider` object to deliver, we have to pass an `axios` instance and the `API_URL` of the **Strapi** server we are running as our backend.
 
-For the `DataProvider` function above, inside `App.tsx` we are importing `axiosInstance` from the `authProvider.ts` file. For the `API_URL`, we will have to set up a **Strapi** server before we can modify the `src/constants.ts` file:
+We are importing `axiosInstance` from the `authProvider.ts` file which also houses our `authProvider` object. We'll consider the `authProvider` prop in the next section, but for the `API_URL`, we will have to set up a **Strapi** server before we can modify the `src/constants.ts` file:
 
 ```TypeScript
 // src/constants.ts
@@ -578,7 +574,7 @@ export const API_URL = "https://api.strapi-v4.refine.dev";
 export const TOKEN_KEY = "strapi-jwt-token";
 ```
 
-We'll come to this in on [Day 3](), but let's look at the `authProvider` prop now.
+We'll come to this in a later section, but let's look at the `authProvider` prop now.
 
 <br />
 
@@ -697,7 +693,7 @@ These are pretty much the essentials we should get familiar with in order to sta
 
 For this app, we are going to have several collections in stored with the **Strapi** backend server. The entity relational diagram looks like this:
 
-![2-setting-up-the-app-strapi-erd](https://imgbox.com/Yz9lTetN)
+![2-setting-up-the-app-strapi-erd](./2-setting-up-the-app-strapi-erd.png)
 
 
 As we can see from the ERD, a `user` has a `has many` optional relationship with all other entities.
@@ -728,17 +724,30 @@ Next, we have to be able to access the **Strapi** Admin UI that is hosted locall
 
 The admin dashboard at `/admin` after signing up and logging in should look something like this:
 
-![3-setting-up-the-app-strapi-admin](https://imgbox.com/zKQdSXs7)
+![3-setting-up-the-app-strapi-admin](./3-setting-up-the-client-app-strapi-admin.png)
 
-Having access to the **Strapi** admin dashboard, we are ready to go ahead and create our collections.
+<br />
+
+### Strapi API Tokens
+
+Having access to the **Strapi** admin dashboard, we are ready to create access tokens for our **refine** **Pdf Invoice Generator** app. Please follow [this section]() of the **Strapi** quickstart guide for more details on creating API Tokens.
+
+After creating the token, we have to place it inside `src/constants.ts` file. So, let's update it:
+
+```TypeScript
+// src/constants.ts
+
+export const API_URL = "http://localhost:1337";
+export const TOKEN_KEY = "625b118353b2924b459527cd39f7ca792a870cc13619562a3e3f8ee6908519c581bcabb8152cbd10913e72d9adf725e6bd99b8793632b34d1dd952544e3bd883eaba7c3ab169308cd29730267247147d20af102d70a311d515d9b5ab06384e0a2418fe47ecda895d74d87bbcf6bbc74d9b318d5795fcf7be1691ed4524d73621";
+```
+
+With this ready, now we can go ahead and create our collections.
 
 <br />
 
 ### Creating Strapi Collections
 
-We can create collections using the `Content-Type Builder` plugin available in the **Strapi** admin dashboard. More details are available in [this section](https://docs.strapi.io/dev-docs/quick-start#step-1-create-collection-types-with-the-content-type-builder) of the **Strapi** quickstart guide.
-
-<br />
+We can create collections using the `Content-type Builder` plugin available in the **Strapi** admin dashboard. More details are available in [this section](https://docs.strapi.io/dev-docs/quick-start#step-1-create-collection-types-with-the-content-type-builder) of the **Strapi** quickstart guide.
 
 **Users Collection**
 
@@ -750,7 +759,7 @@ The `users` collection is already created when we initialize a **Strapi** instan
 
 The `companies` collection should look like this:
 
-![4-setting-up-the-app-strapi-companies](https://imgbox.com/oqweK1tG)
+![4-setting-up-the-app-strapi-companies](./4-setting-up-the-app-strapi-companies.png)
 
 Notice that `users_permissions.users` collection has a `has many` optional relation with `companies`.
 
@@ -760,7 +769,7 @@ Notice that `users_permissions.users` collection has a `has many` optional relat
 
 The `clients` collection looks like this:
 
-![5-setting-up-the-app-strapi-clients](https://imgbox.com/5bCq4D47)
+![5-setting-up-the-app-strapi-clients](./5-setting-up-the-app-strapi-clients.png)
 
 The `users-permissions.users` collection has a `has many` optional relationship with `clients` as well. `clients`, in turn, has a `has many` optional relation with `contacts`.
 
@@ -770,7 +779,7 @@ The `users-permissions.users` collection has a `has many` optional relationship 
 
 The `contacts` collection should look as below:
 
-![6-setting-up-the-app-strapi-contacts](https://imgbox.com)
+![6-setting-up-the-app-strapi-contacts](./6-setting-up-the-app-strapi-contacts.png)
 
 `users_permissions.users` collection also has a `has many` optional relation with `contacts`.
 
@@ -782,7 +791,7 @@ We need to use the `Content Manager` plugin to create a app user. I have created
 
 We only want our app users to access the CRUD actions when authenticated. So, let's set the appropriate permissions from `Settings >> USERS & PERMISSIONS >> Roles. More details are available in [this section of the **Strapi** quickstart guide](https://docs.strapi.io/dev-docs/quick-start#step-3-set-roles--permissions).
 
-![8-setting-up-the-app-strapi-roles](https://imgbox.com/qq8VqNNE)
+![8-setting-up-the-app-strapi-roles](./7-setting-up-the-app-strapi-authenticated.png)
 
 With all these completed, we are now ready to start adding `resources` to our **refine** app.
 
