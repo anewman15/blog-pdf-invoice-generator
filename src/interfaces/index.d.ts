@@ -27,7 +27,7 @@ export interface IMission {
     id: string;
     mission: string;
     mission_description: string;
-    days: number;
+    day: number;
     daily_rate: number;
 }
 

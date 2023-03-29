@@ -18,7 +18,7 @@
     "mission_description": {
       "type": "text"
     },
-    "days": {
+    "day": {
       "type": "integer"
     },
     "daily_rate": {

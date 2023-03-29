@@ -37,7 +37,7 @@ export const MissionList: React.FC = () => {
                         dataIndex="mission_description"
                         title="Mission Description"
                     />
-                    <Table.Column dataIndex="days" title="Day(s)" />
+                    <Table.Column dataIndex="day" title="Day(s)" />
                     <Table.Column
                         dataIndex="daily_rate"
                         title="Daily Rate"
@@ -51,7 +51,7 @@ export const MissionList: React.FC = () => {
                             return (
                                 <TagField
                                     value={`${
-                                        record?.daily_rate * record?.days
+                                        record?.daily_rate * record?.day
                                     } $`}
                                     color="green"
                                 />
