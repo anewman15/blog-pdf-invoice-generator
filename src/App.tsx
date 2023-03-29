@@ -4,10 +4,12 @@ import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import {
   AuthPage,
   ErrorComponent,
-  Layout,
+  ThemedLayout,
   notificationProvider,
+  ThemedTitle,
 } from "@refinedev/antd";
 import "@refinedev/antd/dist/reset.css";
+import * as Icons from "@ant-design/icons";
 
 import routerBindings, {
   CatchAllNavigate,
@@ -15,23 +17,24 @@ import routerBindings, {
   UnsavedChangesNotifier,
 } from "@refinedev/react-router-v6";
 import { DataProvider } from "@refinedev/strapi-v4";
-import {
-  CategoryCreate,
-  CategoryEdit,
-  CategoryList,
-  CategoryShow,
-} from "pages/categories";
-import {
-  ProductCreate,
-  ProductEdit,
-  ProductList,
-  ProductShow,
-} from "pages/products";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { authProvider, axiosInstance } from "./authProvider";
 import { Header } from "./components/header";
 import { API_URL } from "./constants";
 import { ColorModeContextProvider } from "./contexts/color-mode";
+import { CompanyList } from "pages/companies";
+import { ClientList } from "pages/clients";
+import { ContactList, EditContact } from "pages/contacts";
+import { MissionList } from "pages/missions";
+import { CreateInvoice, EditInvoice, InvoiceList } from "pages/invoices";
+
+const {
+  UserAddOutlined,
+  TeamOutlined,
+  InfoCircleOutlined,
+  SlidersOutlined,
+  FileAddOutlined,
+} = Icons;
 
 function App() {
   return (
@@ -42,24 +45,32 @@ function App() {
           <Refine
             resources={[
               {
-                name: "products",
-                list: "/products",
-                create: "/products/create",
-                edit: "/products/edit/:id",
-                show: "/products/show/:id",
-                meta: {
-                  canDelete: true,
-                },
+                name: "companies",
+                list: "/companies",
+                icon: <InfoCircleOutlined />,
               },
               {
-                name: "categories",
-                list: "/categories",
-                create: "/categories/create",
-                edit: "/categories/edit/:id",
-                show: "/categories/show/:id",
-                meta: {
-                  canDelete: true,
-                },
+                name: "clients",
+                list: "/clients",
+                icon: <TeamOutlined />,
+              },
+              {
+                name: "contacts",
+                list: "/contacts",
+                edit: "/contacts/:id/edit",
+                icon: <UserAddOutlined />,
+              },
+              {
+                name: "missions",
+                list: "/missions",
+                icon: <SlidersOutlined />,
+              },
+              {
+                name: "invoices",
+                list: "/invoices",
+                create: "/invoices/create",
+                edit: "invoices/:id/edit",
+                icon: <FileAddOutlined />,
               },
             ]}
             authProvider={authProvider}
@@ -75,27 +86,41 @@ function App() {
               <Route
                 element={
                   <Authenticated fallback={<CatchAllNavigate to="/login" />}>
-                    <Layout Header={Header}>
+                    <ThemedLayout
+                      Header={Header}
+                      Title={({ collapsed }) => (
+                        <ThemedTitle
+                          collapsed={collapsed}
+                          text="refine Invoice"
+                        />
+                      )}
+                    >
                       <Outlet />
-                    </Layout>
+                    </ThemedLayout>
                   </Authenticated>
                 }
               >
                 <Route
                   index
-                  element={<NavigateToResource resource="products" />}
+                  element={<NavigateToResource resource="companies" />}
                 />
-                <Route path="/products">
-                  <Route index element={<ProductList />} />
-                  <Route path="create" element={<ProductCreate />} />
-                  <Route path="edit/:id" element={<ProductEdit />} />
-                  <Route path="show/:id" element={<ProductShow />} />
+                <Route path="/companies">
+                  <Route index element={<CompanyList />} />
                 </Route>
-                <Route path="/categories">
-                  <Route index element={<CategoryList />} />
-                  <Route path="create" element={<CategoryCreate />} />
-                  <Route path="edit/:id" element={<CategoryEdit />} />
-                  <Route path="show/:id" element={<CategoryShow />} />
+                <Route path="/clients">
+                  <Route index element={<ClientList />} />
+                </Route>
+                <Route path="/contacts">
+                  <Route index element={<ContactList />} />
+                  <Route path="/contacts/:id/edit" element={<EditContact />} />
+                </Route>
+                <Route path="/missions">
+                  <Route index element={<MissionList />} />
+                </Route>
+                <Route path="/invoices">
+                  <Route index element={<InvoiceList />} />
+                  <Route path="/invoices/create" element={<CreateInvoice />} />
+                  <Route path="/invoices/:id/edit" element={<EditInvoice />} />
                 </Route>
               </Route>
               <Route
@@ -123,9 +148,17 @@ function App() {
               <Route
                 element={
                   <Authenticated>
-                    <Layout Header={Header}>
+                    <ThemedLayout
+                      Header={Header}
+                      Title={({ collapsed }) => (
+                        <ThemedTitle
+                          collapsed={collapsed}
+                          text="refine Invoice"
+                        />
+                      )}
+                    >
                       <Outlet />
-                    </Layout>
+                    </ThemedLayout>
                   </Authenticated>
                 }
               >
