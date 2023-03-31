@@ -27,16 +27,10 @@
     "job": {
       "type": "string"
     },
-    "clients": {
+    "client": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "oneToOne",
       "target": "api::client.client"
-    },
-    "users_permissions_user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "contacts"
     }
   }
 }
