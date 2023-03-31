@@ -6,7 +6,6 @@ import {
   ErrorComponent,
   ThemedLayout,
   notificationProvider,
-  ThemedTitle,
 } from "@refinedev/antd";
 import "@refinedev/antd/dist/reset.css";
 
@@ -17,17 +16,17 @@ import routerBindings, {
 } from "@refinedev/react-router-v6";
 import { DataProvider } from "@refinedev/strapi-v4";
 import {
+  BlogPostCreate,
+  BlogPostEdit,
+  BlogPostList,
+  BlogPostShow,
+} from "pages/blog-posts";
+import {
   CategoryCreate,
   CategoryEdit,
   CategoryList,
   CategoryShow,
 } from "pages/categories";
-import {
-  ProductCreate,
-  ProductEdit,
-  ProductList,
-  ProductShow,
-} from "pages/products";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { authProvider, axiosInstance } from "./authProvider";
 import { Header } from "./components/header";
@@ -41,13 +40,17 @@ function App() {
       <RefineKbarProvider>
         <ColorModeContextProvider>
           <Refine
+            authProvider={authProvider}
+            dataProvider={DataProvider(API_URL + `/api`, axiosInstance)}
+            notificationProvider={notificationProvider}
+            routerProvider={routerBindings}
             resources={[
               {
-                name: "products",
-                list: "/products",
-                create: "/products/create",
-                edit: "/products/edit/:id",
-                show: "/products/show/:id",
+                name: "blog-posts",
+                list: "/blog-posts",
+                create: "/blog-posts/create",
+                edit: "/blog-posts/edit/:id",
+                show: "/blog-posts/show/:id",
                 meta: {
                   canDelete: true,
                 },
@@ -63,10 +66,6 @@ function App() {
                 },
               },
             ]}
-            authProvider={authProvider}
-            dataProvider={DataProvider(API_URL + `/api`, axiosInstance)}
-            notificationProvider={notificationProvider}
-            routerProvider={routerBindings}
             options={{
               syncWithLocation: true,
               warnWhenUnsavedChanges: true,
@@ -76,15 +75,7 @@ function App() {
               <Route
                 element={
                   <Authenticated fallback={<CatchAllNavigate to="/login" />}>
-                    <ThemedLayout
-                      Header={Header}
-                      Title={({ collapsed }) => (
-                        <ThemedTitle
-                          collapsed={collapsed}
-                          text="refine Invoice"
-                        />
-                      )}
-                    >
+                    <ThemedLayout Header={Header}>
                       <Outlet />
                     </ThemedLayout>
                   </Authenticated>
@@ -92,13 +83,13 @@ function App() {
               >
                 <Route
                   index
-                  element={<NavigateToResource resource="products" />}
+                  element={<NavigateToResource resource="blog-posts" />}
                 />
-                <Route path="/products">
-                  <Route index element={<ProductList />} />
-                  <Route path="create" element={<ProductCreate />} />
-                  <Route path="edit/:id" element={<ProductEdit />} />
-                  <Route path="show/:id" element={<ProductShow />} />
+                <Route path="/blog-posts">
+                  <Route index element={<BlogPostList />} />
+                  <Route path="create" element={<BlogPostCreate />} />
+                  <Route path="edit/:id" element={<BlogPostEdit />} />
+                  <Route path="show/:id" element={<BlogPostShow />} />
                 </Route>
                 <Route path="/categories">
                   <Route index element={<CategoryList />} />
@@ -132,15 +123,7 @@ function App() {
               <Route
                 element={
                   <Authenticated>
-                    <ThemedLayout
-                      Header={Header}
-                      Title={({ collapsed }) => (
-                        <ThemedTitle
-                          collapsed={collapsed}
-                          text="refine Invoice"
-                        />
-                      )}
-                    >
+                    <ThemedLayout Header={Header}>
                       <Outlet />
                     </ThemedLayout>
                   </Authenticated>

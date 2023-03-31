@@ -1,9 +1,17 @@
 import { useGetIdentity } from "@refinedev/core";
-import { Layout as AntdLayout, Avatar, Space, Switch, Typography, theme } from "antd";
+import {
+  Layout as AntdLayout,
+  Avatar,
+  Space,
+  Switch,
+  Typography,
+  theme,
+} from "antd";
 import { useContext } from "react";
 import { ColorModeContext } from "../../contexts/color-mode";
 
 const { Text } = Typography;
+const { useToken } = theme;
 
 type IUser = {
   id: number;
@@ -11,7 +19,6 @@ type IUser = {
   avatar: string;
 };
 
-const { useToken } = theme;
 export const Header: React.FC = () => {
   const { token } = useToken();
   const { data: user } = useGetIdentity<IUser>();
@@ -35,7 +42,7 @@ export const Header: React.FC = () => {
           onChange={() => setMode(mode === "light" ? "dark" : "light")}
           defaultChecked={mode === "dark"}
         />
-        <Space size="middle">
+        <Space style={{ marginLeft: "8px" }} size="middle">
           {user?.name && <Text strong>{user.name}</Text>}
           {user?.avatar && <Avatar src={user?.avatar} alt={user?.name} />}
         </Space>
