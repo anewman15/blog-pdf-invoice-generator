@@ -19,12 +19,6 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::contact.contact"
-    },
-    "users_permissions_user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "clients"
     }
   }
 }

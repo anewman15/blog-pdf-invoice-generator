@@ -20,28 +20,27 @@
     },
     "company": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::company.company",
-      "inversedBy": "invoices"
+      "relation": "oneToOne",
+      "target": "api::company.company"
+    },
+    "discount": {
+      "type": "integer"
+    },
+    "tax": {
+      "type": "integer"
     },
     "custom_id": {
       "type": "string"
     },
     "contact": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::contact.contact",
-      "inversedBy": "invoices"
+      "relation": "oneToOne",
+      "target": "api::contact.contact"
     },
     "missions": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::mission.mission"
-    },
-    "users_permissions_user": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
     }
   }
 }
