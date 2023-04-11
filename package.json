@@ -30,7 +30,7 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "dev": "refine start",
+    "dev": "PORT=3001 refine start",
     "build": "refine build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

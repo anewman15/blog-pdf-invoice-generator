@@ -24,7 +24,10 @@ export const CreateContact: React.FC<CreateContactProps> = ({
 
     return (
         <Modal {...modalProps} title="Create Contact">
-            <Form {...formProps} layout="vertical">
+            <Form
+                {...formProps}
+                layout="vertical"
+                >
                 <Form.Item
                     label="First Name"
                     name="first_name"
