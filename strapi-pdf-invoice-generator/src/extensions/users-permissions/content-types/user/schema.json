@@ -62,30 +62,6 @@
       "target": "plugin::users-permissions.role",
       "inversedBy": "users",
       "configurable": false
-    },
-    "contacts": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::contact.contact",
-      "mappedBy": "users_permissions_user"
-    },
-    "clients": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::client.client",
-      "mappedBy": "users_permissions_user"
-    },
-    "companies": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::company.company",
-      "mappedBy": "users_permissions_user"
-    },
-    "invoices": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::invoice.invoice",
-      "mappedBy": "users_permissions_user"
     }
   }
 }
