@@ -18,10 +18,9 @@ export const EditCompany: React.FC<EditCompanyProps> = ({
     });
 
     return (
-        <Modal {...modalProps}>
+        <Modal {...modalProps} title="Edit Company" width="50%">
             <Form
                 {...formProps}
-                wrapperCol={{ span: 12 }}
                 layout="vertical"
                 onFinish={(values) => {
                     console.log(values);
