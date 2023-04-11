@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "invoices",
+  "info": {
+    "singularName": "invoice",
+    "pluralName": "invoices",
+    "displayName": "Invoice",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "date": {
+      "type": "datetime"
+    },
+    "company": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::company.company"
+    },
+    "discount": {
+      "type": "integer"
+    },
+    "tax": {
+      "type": "integer"
+    },
+    "custom_id": {
+      "type": "string"
+    },
+    "contact": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::contact.contact"
+    },
+    "missions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::mission.mission"
+    }
+  }
+}

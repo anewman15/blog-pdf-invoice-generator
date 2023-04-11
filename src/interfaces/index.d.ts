@@ -26,6 +26,7 @@ export interface IContact {
 export interface IMission {
     id: string;
     mission: string;
+    mission_description: string;
     day: number;
     daily_rate: number;
 }
