@@ -31,11 +31,11 @@ export const EditClient: React.FC<EditClientProps> = ({
         >
             <Edit
                 saveButtonProps={saveButtonProps}
-                title={<h3
-                    style={{"padding": "24px", "fontWeight": "bold"}}
+                title={<h4
+                    style={{"padding": "0 24px", "fontWeight": "bold"}}
                     >
                         Edit Client
-                    </h3>}>
+                    </h4>}>
                 <Form
                     {...formProps}
                     layout="vertical"
