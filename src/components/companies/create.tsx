@@ -20,7 +20,7 @@ export const CreateCompany: React.FC<CreateCompanyProps> = ({
     const API_URL = useApiUrl();
 
     return (
-        <Modal {...modalProps} title="Create Company">
+        <Modal {...modalProps} title="Create Company" width="50%">
             <Form
                 {...formProps}
                 layout="vertical"
