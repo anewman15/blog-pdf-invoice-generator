@@ -75,7 +75,7 @@ function App() {
                       Title={({ collapsed }) => (
                         <ThemedTitle
                           collapsed={collapsed}
-                          text="refine Invoice"
+                          text="Invoicer"
                         />
                       )}
                     >
@@ -111,6 +111,12 @@ function App() {
                   element={
                     <AuthPage
                       type="login"
+                      title={
+                        <ThemedTitle
+                            collapsed
+                            text="Invoicer"
+                        />
+                    }
                       formProps={{
                         initialValues: {
                           email: "demo@refine.dev",
@@ -129,7 +135,7 @@ function App() {
                       Title={({ collapsed }) => (
                         <ThemedTitle
                           collapsed={collapsed}
-                          text="refine Invoice"
+                          text="Invoicer"
                         />
                       )}
                     >
